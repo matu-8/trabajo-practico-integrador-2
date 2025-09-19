@@ -7,10 +7,14 @@ import { connectDB } from "./src/config/database.js";
 const app = express();
 const PORT = process.env.PORT;
 //middlewares
-app.use(cors())
+//config basica para permitir cookies y credenciales
+app.use(cors({
+    origin:'http://localhost:27017',
+    credentials:true
+}));
+
 app.use(express.json())
 app.use(cookieParser())
-
 
 
 connectDB()
