@@ -4,11 +4,14 @@ const UserSchema = new Schema({
     name:{      //de 3-20 caracteres
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        minlength: 3,
+        maxlength: 20 
     },
     email:{     //formato valido
         type: String,
-        unique: true
+        unique: true,
+        match:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
     },
     password:{  //hasheada
         type: String,
@@ -23,15 +26,20 @@ const UserSchema = new Schema({
     profile:{
         firstName:{   // de 2-50 caracteres
             type: String,
+            minlength: 2,
+            maxlength: 50 
         },
         lastName:{   // de 2-50 caracteres
-            type: String
+            type: String,
+            minlength: 2,
+            maxlength: 50 
         },
         biography:{  //opcional
-            type: String 
+            type: String,
+            maxlength:500 
         },
         avatarUrl:{
-            type: String,  //opcional, formato URL
+            type: String,  //opcional, formato URL  
         },
         birthDate:{
             type: Date  //opcional, formato de fecha

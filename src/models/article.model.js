@@ -4,18 +4,23 @@ const ObjectId = Schema.Types.ObjectId
 
 const ArticleSchema = new Schema({
     title:{
-        type: String
+        type: String,
+        minlength: 3,
+        maxlength: 200 
     },
     content:{
-        type:String
+        type:String,
+        minlength: 50,
+
     },
     excerpt:{
-        type:String
+        type:String,
+        maxlength: 500,
     },
     status:{
         type:String,
         enum:['published','achived'],
-        default:'published'
+        default:'published',
     },
     author:{
         type: ObjectId,
