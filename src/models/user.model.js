@@ -1,7 +1,7 @@
 import {model, Schema} from "mongoose";
 
 const UserSchema = new Schema({
-    name:{      //de 3-20 caracteres
+    username:{      //de 3-20 caracteres
         type: String,
         required: true,
         unique: true,
@@ -23,7 +23,8 @@ const UserSchema = new Schema({
         default:'user',
         required:true,
     },
-    profile:{
+    profile:
+        {
         firstName:{   // de 2-50 caracteres
             type: String,
             minlength: 2,

@@ -6,19 +6,26 @@ const ObjectId = Schema.Types.ObjectId
 const CommentSchema = new Schema({
     content:{
         type:String,
+        minlength: 5,
+        maxlength: 500
     },
     author:{
-        type:ObjectId
+        type:ObjectId,
+        ref:"User"
     },
     article:{
-        type:ObjectId
+        type:[ObjectId],
+        ref:"Article"
     },
-    createdAt:{
-        type:Date
-    },
-    updatedAt:{
-        type:Date
-    },
+    // createdAt:{
+    //     type:Date
+    // },
+    // updatedAt:{
+    //     type:Date
+    // },
+},
+{
+    timestamps: true
 })
 
 const CommentModel = model('Comment', CommentSchema)
