@@ -3,17 +3,18 @@ import { model, Schema } from "mongoose";
 const TagSchema = new Schema({
     name:{
         type:String,
-        unique:true
+        unique:true,
+        minlength: 2,
+        maxlength: 30,
+
     },
     description:{
         type:String,
+        maxlength:200
     },
-    createdAt:{
-        type:Date
-    },
-    updatedAt:{
-        type:Date
-    },
+},
+{
+    timestamps: true,
 })
 
 const TagModel = model('Tag', TagSchema)

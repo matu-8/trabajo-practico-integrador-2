@@ -24,9 +24,11 @@ const ArticleSchema = new Schema({
     },
     author:{
         type: ObjectId,
+        ref:"User"
     },
     tags:{
-        type:[ObjectId],
+        type:[ObjectId], //Va como un arreglo de objetos porque va a tener muchos tags.
+        ref:"Tag"
     },
     createdAt:{
         type:Date
