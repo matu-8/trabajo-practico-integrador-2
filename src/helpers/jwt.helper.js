@@ -13,7 +13,7 @@ export const generateToken = (payload) => {
 };
 
 //2-Verificacin de token
-export const verifyToken = (token)=>{
+export const verifyToken = (token) => {
     try {
         return jwt.verify(token, process.env.JWT_SECRET)
 

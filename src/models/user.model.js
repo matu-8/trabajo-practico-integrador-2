@@ -1,4 +1,5 @@
 import {model, Schema} from "mongoose";
+import ArticleModel from "./article.model.js";
 
 const UserSchema = new Schema({
     username:{      //de 3-20 caracteres
@@ -6,7 +7,8 @@ const UserSchema = new Schema({
         required: true,
         unique: true,
         minlength: 3,
-        maxlength: 20 
+        maxlength: 20,
+        match: /^[a-zA-Z0-9]+$/ 
     },
     email:{     //formato valido
         type: String,
@@ -28,7 +30,7 @@ const UserSchema = new Schema({
         firstName:{   // de 2-50 caracteres
             type: String,
             minlength: 2,
-            maxlength: 50 
+            maxlength: 50,
         },
         lastName:{   // de 2-50 caracteres
             type: String,
@@ -46,13 +48,19 @@ const UserSchema = new Schema({
             type: Date  //opcional, formato de fecha
         }
     },
-    createdAt:{
-        type: Date
-    },
-    updatedAt:{
-        type: Date
-    }
-});
+},
+{
+    timestamps:true
+}
+);
+//Eliminacion de usuario con sus articulos
+UserSchema.pre("findOneAndDelete", async function(next) {
+    const article = await this.model.findOne(this.getFilter())
 
+    if(article){
+        await ArticleModel.deleteMany({author:article._id})
+    }
+    next();
+})
 const UserModel = model('User', UserSchema)
 export default UserModel;

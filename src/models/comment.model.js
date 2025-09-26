@@ -17,12 +17,6 @@ const CommentSchema = new Schema({
         type:[ObjectId],
         ref:"Article"
     },
-    // createdAt:{
-    //     type:Date
-    // },
-    // updatedAt:{
-    //     type:Date
-    // },
 },
 {
     timestamps: true

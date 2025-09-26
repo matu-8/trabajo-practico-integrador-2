@@ -1,10 +1,16 @@
 import { validationResult } from "express-validator";
 
-export const validator = async(req, res, next)=>{
-        const results = validationResult(req)
+export const validator = (req, res, next) => {
+  const errors = validationResult(req);
 
-        if(!results.isEmpty())
-            return res.status(400).json(results)
-    };
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array().map((err) => ({
+        campo: err.param,
+        mensaje: err.msg,
+      })),
+    });
+  }
 
-next();
+  next();
+};
