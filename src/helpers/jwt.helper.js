@@ -21,4 +21,4 @@ export const verifyToken = (token) => {
         
         throw new Error(`Error e verificar el token ${error}`); 
     }
-}
+};

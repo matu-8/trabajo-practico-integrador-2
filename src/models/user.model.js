@@ -80,8 +80,8 @@ para que excluyan automáticamente los documentos marcados como eliminados.
 UserSchema.pre("findOneAndDelete", async function (next) {
   const isUserFound = this.getFilter(); //si se encuentro un usuario, tomo el filtro de la consulta y obtengo el id del mismo
   if (isUserFound) {
-    await this.model.updateOne(isUserFound, { deletedAt: new Date() }); //extraer la conuslta ya me sirve para poder actualizar el campo deletAt con una fecha
-    
+    await this.model.updateOne(isUserFound, { deletedAt: new Date() }); //extraer la conuslta ya me sirve para poder actualizar el campo deletedAt con una fecha
+    next();
   }
     throw new Error("No se ha encontrado el usuario especificado")
 });

@@ -4,8 +4,9 @@ import cookieParser from "cookie-parser";
 import cors from 'cors';
 import { connectDB } from "./src/config/database.js";
 import { UserRoutes } from "./src/routes/user.route.js";
-import { ArticleRoutes } from "./src/routes/article.route.js";
+import articleRoutes from "./src/routes/article.route.js";
 import { AuthRoutes } from "./src/routes/auth.route.js";
+import commentRouter from "./src/routes/comment.router.js";
 
 //instancio express
 const app = express();
@@ -22,8 +23,9 @@ app.use(express.json())
 
 //Enrutamiento
 app.use('/api', UserRoutes)
-app.use('/api', ArticleRoutes)
+app.use('/api', articleRoutes)
 app.use('/api', AuthRoutes)
+app.use('/api', commentRouter)
 
 connectDB()
 app.listen(PORT,()=>{

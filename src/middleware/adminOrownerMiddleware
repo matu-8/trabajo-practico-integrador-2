@@ -1,0 +1,36 @@
+import ArticleModel from "../models/article.model.js";
+
+export const adminOrOwnerMiddleware = async (req, res, next) => {
+  try {
+    const { role, id } = req.user; // Traigo rol y id del usuario
+    const articleId = req.params.id;
+
+    // Buscar artículo por ID (Mongoose usa findById)
+    const article = await ArticleModel.findById(articleId);
+
+    if (!article) {
+      return res.status(404).json({
+        ok: false,
+        msg: "No se ha encontrado el artículo"
+      });
+    }
+
+    // Comparar con author (tu modelo usa 'author', no 'user_id')
+    // Convertir a string para comparación segura
+    if (role === "admin" || id === article.author.toString()) {
+      return next();
+    }
+
+    return res.status(403).json({
+      ok: false,
+      msg: "No está autorizado a acceder al recurso"
+    });
+
+  } catch (error) {
+    console.error(">>> ! Ha ocurrido un error en adminOrOwnerMiddleware:", error);
+    return res.status(500).json({
+      ok: false,
+      msg: "Error interno del servidor"
+    });
+  }
+};

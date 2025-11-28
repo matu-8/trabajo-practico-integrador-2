@@ -5,3 +5,8 @@ export const hashPassword = async(password) => { //creo una funcion a la que se 
     const saltRounds = 10;  //defino en una constante, la cantidad de "vueltas" o rounds que hará el algoritmo para codificar la contraseña en código base64
     return await bcrypt.hash(password, 10) //con la funcion de bcrypt "hash", hago la codificacion pasandole la contraseña y el numero de vueltas
 }
+
+//Verificacion de contrasena
+export const comparePassword =  async(password, hashedPassword)=>{
+    return await bcrypt.compare(password, hashedPassword)
+};
