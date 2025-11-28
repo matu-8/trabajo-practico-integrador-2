@@ -1,6 +1,5 @@
 import { matchedData } from "express-validator";
 import UserModel from "../models/user.model.js";
-import { hashPassword } from "../helpers/hash.helper.js";
 
 export const getAllUser = async(req, res)=>{
     try {
@@ -64,9 +63,10 @@ export const getUserById = async(req, res) => {
 export const deleteUser = async(req, res) => {
 try {
     const {id} = req.params;
-    const deletedUser = await UserModel.findByIdAndDelete(id)
+    await UserModel.findByIdAndDelete(id)
     return res.status(200).json({
         ok:true,
+        msg:"El usuario se ha eliminado"
         
     })
 } catch (error) {
