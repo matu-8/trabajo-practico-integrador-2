@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { updateUserValidation,
         getUserByIdValidation,
-        deleteUserValidation } from "../middleware/validations/user.validator.js";
+        deleteUserValidation } from "../middleware/validations/user.validation.js";
 
 import {updateUser,
     getAllUser,
