@@ -1,27 +1,28 @@
-import { model, Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 
-//instancio el ObjectId
-const ObjectId = Schema.Types.ObjectId
+const ObjectId = Schema.Types.ObjectId;
 
-const CommentSchema = new Schema({
-    content:{
-        type:String,
-        minlength: 5,
-        maxlength: 500
+const CommentSchema = new Schema(
+  {
+    content: {
+      type: String,
+      minLength: 5,
+      maxLength: 500,
     },
-    author:{
-        type:ObjectId,
-        ref:"User"
+    author: {
+      type: ObjectId,
+      ref: "User",
     },
-    article:{
-        type:[ObjectId],
-        ref:"Article"
+    article: {
+      type: ObjectId,
+      ref: "Article",
     },
-},
-{
-    timestamps: true
-})
+  },
+  {
+    timestamps: true,
+  },
+);
 
-const CommentModel = model('Comment', CommentSchema)
+const CommentModel = model("Comment", CommentSchema);
 
 export default CommentModel;

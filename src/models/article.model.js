@@ -34,17 +34,28 @@ const ArticleSchema = new Schema({
     },       
 },
 {
-    timestamps:true
+    timestamps:true,
+    versionKey:false,
+    toJSON:{virtuals:true},
+    toObject:{virtuals:true}
 });
-//Eliminacion de articulo con sus comentarios
+//Eliminacion de articulo con sus comentarios (hard delete)
 ArticleSchema.pre("findOneAndDelete", async function(next){ //Para la funcion de "findOneAndDelete", para eliminar un articulo
-                                                            //agrego un "gancho", que se va a ejecutar antes de eliminarlo.
+                                                            //agrego un "gancho" (hooks), que se va a ejecutar antes de eliminarlo.
     const article = await this.model.findOne(this.getFilter()) // 
 
     if(article){
         await CommentModel.deleteMany({article : article._id})
     }
     next();
+
+//Campo virtual para listar comentarios
+ArticleSchema.virtual("comments", {
+    ref:CommentModel,
+    localField:"_id",
+    foreignField:"article",
+    justOne:false
+})
 })
 const ArticleModel = model('Article', ArticleSchema)
 export default ArticleModel;
