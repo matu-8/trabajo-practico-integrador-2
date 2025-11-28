@@ -10,7 +10,6 @@ body("username")
     .isLength({min:2, max:30}).withMessage("El username no debe tener menos de 3 ni mas de 30 caracteres")
     .custom(async value => {
         const user = await UserModel.findOne({username:value})
-        console.log(user)
         if(user){
             throw new Error("Ya existe un usuario con el nombre ingresado")
         }
@@ -18,15 +17,24 @@ body("username")
     }),
 
 body("email")
-    .notEmpty().withMessage("El campo no puede estsa vacio")
+    .notEmpty().withMessage("El campo no puede estar vacio")
     .trim()
     .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
-    .withMessage("El email debe ser un formato valido"),
+    .withMessage("El email debe ser un formato valido")
+     .custom(async value => {
+        const email = await UserModel.findOne({email:value})
+        console.log(`>>> prueba`)
+        if(email){
+            throw new Error("Ya existe un correo con la direccion ingresada")
+        }
+        return true;
+    }),
 
 body("password")
     .notEmpty().withMessage("El campo no puede ser vacio")
     .trim()
     .isAlphanumeric()
+    .matches(/^[a-zA-Z0-9]+$/)
     .isString(),
 
 body("role")
@@ -60,7 +68,8 @@ body("password")
 body("role")
     .optional()
     .isString()
-    .isIn(["admin","user"]).withMessage("Este campo solo debe contener los valores por defecto (admin, user)"),
+    .isIn(["admin","user"])
+    .withMessage("Este campo solo debe contener los valores por defecto (admin, user)"),
 ]
 
 export const getUserByIdValidation = [

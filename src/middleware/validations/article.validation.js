@@ -4,12 +4,13 @@ import ArticleModel from "../../models/article.model.js";
 export const CreateArticleValidation = [
     body("title")
         .notEmpty().withMessage("El campo no debe ser vacio")
-        .isString().withMessage("El Titulo debe sr una cadena de caracteres")
+        .isString().withMessage("El Titulo debe ser una cadena de caracteres")
         .trim()
         .custom( async (value) => {
             const article = await ArticleModel.findOne({
                 title:value
             })
+
             if(article){
                 throw new Error(`El titulo del articulo ya existe`)
             }
