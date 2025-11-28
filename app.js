@@ -23,7 +23,7 @@ app.use(express.json())
 
 //Enrutamiento
 app.use('/api', UserRoutes)
-app.use('/api', articleRoutes)
+app.use('/api/articles', articleRoutes)
 app.use('/api', AuthRoutes)
 app.use('/api', commentRouter)
 

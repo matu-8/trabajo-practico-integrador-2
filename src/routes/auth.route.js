@@ -16,4 +16,4 @@ AuthRoutes.post('/auth/login',
     loginUserValidation,
     validator,
     login)
-// AuthRoutes.post('/auth',)
+// AuthRoutes.post('/auth/profile',  )

@@ -23,19 +23,19 @@ import { adminOrOwnerMiddleware } from "../middleware/adminOrownerMiddleware";
 const articleRouter = Router();
 
 articleRouter.post(
-  "/articles",
+  "/",
   authMiddleware,
   CreateArticleValidation,
   validator,
   createArticle
 );
 
-articleRouter.get("/articles", getAllArticles);
+articleRouter.get("/", getAllArticles);
 
-articleRouter.get("/articles/:id", mongoIdValidator, validator, getArticleById);
+articleRouter.get("/:id", mongoIdValidator, validator, getArticleById);
 
 articleRouter.put(
-  "/articles/:id",
+  "/:id",
   authMiddleware,
   mongoIdValidator,
   validator,
@@ -46,7 +46,7 @@ articleRouter.put(
 );
 
 articleRouter.delete(
-  "/articles/:id",
+  "/:id",
   authMiddleware,
   mongoIdValidator,
   validator,
@@ -55,7 +55,7 @@ articleRouter.delete(
 );
 //Rutas para agregar o eliminar etiquetas de un articulo
 articleRouter.post(
-  "/articles/:articleId:/tags/:tagId",
+  "/:articleId/tags/:tagId",
   authMiddleware,
   adminOrOwnerMiddleware,
   addTagToArticle
